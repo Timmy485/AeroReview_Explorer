@@ -7,7 +7,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 st.markdown(
-    "<h3 style='text-align: center; background-color: #f0f0f0; padding: 10px;'>Analyze Sentiment Trends of British Airways Flights</h3>",
+    "<h3 style='text-align: center; padding: 10px;'>Analyze Sentiment Trends of British Airways Flights</h3>",
     unsafe_allow_html=True
 )
 
