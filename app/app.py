@@ -45,13 +45,32 @@ elif selected_feature == "Word Clouds":
     st.header("Word Clouds")
     # Include word clouds for positive, negative, and neutral sentiments.
 
-# Continue with similar sections for other features
+elif selected_feature == "Geographical Insights":
+    st.header("Geographical Insights")
 
+elif selected_feature == "Topic Modeling":
+    st.header("Topic Modeling")
+
+elif selected_feature == "Real-time Sentiment Analysis":
+    st.header("Real-time Sentiment Analysis")
+
+elif selected_feature == "Comparative Analysis":
+    st.header("Comparative Analysis")
+
+elif selected_feature == "Sentiment Trends by Aspect":
+    st.header("Sentiment Trends by Aspect")
+
+elif selected_feature == "Predictive Insights":
+    st.header("Predictive Insights")
 # Close the background div for the main content
 st.markdown("</div>", unsafe_allow_html=True)
 
+
+
 # Footer with a subdued color
 st.markdown(
-    "<p style='text-align: center; color: #999;'>AeroReview Explorer by Your Name</p>",
+    "<div style='position: fixed; bottom: 0; left: 0; width: 100%; text-align: center; background-color: #f0f0f0; padding: 10px;'>"
+    "<p style='color: #999;'>AeroReview Explorer by Yeboah Timothy</p>"
+    "</div>",
     unsafe_allow_html=True
 )
