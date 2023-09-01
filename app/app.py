@@ -3,7 +3,7 @@ import streamlit as st
 
 # Set the title and subtitle with background color
 st.markdown(
-    "<h1 style='text-align: center; background-color: #f0f0f0; padding: 10px;'>AeroReview Explorer</h1>",
+    "<h1 style='text-align: center; padding: 10px;'>AeroReview Explorer</h1>",
     unsafe_allow_html=True
 )
 st.markdown(
@@ -13,14 +13,16 @@ st.markdown(
 
 # Sidebar Navigation with header background color
 st.sidebar.markdown(
-    "<h3 style='background-color: #c0e6e6; padding: 10px;'>Navigation</h3>",
+    "<h3 style= padding: 10px;'>Navigation</h3>",
     unsafe_allow_html=True
 )
-selected_feature = st.sidebar.radio(
-    "Select a Feature",
-    ("Data Visualization", "Sentiment Distribution", "Word Clouds", "Geographical Insights",
-     "Topic Modeling", "Real-time Sentiment Analysis", "Comparative Analysis", "Sentiment Trends by Aspect", "Predictive Insights")
-)
+
+
+# Use a dropdown menu for feature selection
+selected_feature = st.sidebar.selectbox("Select a Feature", (
+    "Data Visualization", "Sentiment Distribution", "Word Clouds", "Geographical Insights",
+    "Topic Modeling", "Real-time Sentiment Analysis", "Comparative Analysis",
+    "Sentiment Trends by Aspect", "Predictive Insights"))
 
 # Main Content with light background color
 st.markdown(
