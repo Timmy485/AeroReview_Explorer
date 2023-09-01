@@ -26,7 +26,7 @@ selected_feature = st.sidebar.selectbox("Select a Feature", (
 
 # Main Content with light background color
 st.markdown(
-    "<div style='background-color: #f9f9f9; padding: 20px;'>",
+    "<div style='background-color: #f9f9f9; padding: 5px;'>",
     unsafe_allow_html=True
 )
 
@@ -69,7 +69,7 @@ st.markdown("</div>", unsafe_allow_html=True)
 
 # Footer with a subdued color
 st.markdown(
-    "<div style='position: fixed; bottom: 0; left: 0; width: 100%; text-align: center;'>"
+    "<div style='position: fixed; bottom: 0; right: 0; width: 100%; text-align: center;'>"
     "<p style='color: #999;'>AeroReview Explorer by Yeboah Timothy</p>"
     "</div>",
     unsafe_allow_html=True
