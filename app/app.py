@@ -12,10 +12,6 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-st.image("app/media/robo.jpg",
-             use_column_width=True,)
-
-
 # Set the title and subtitle with background color
 st.markdown(
     "<h1 style='text-align: center; padding: 10px;'>AEROREVIEW EXPLORER</h1>",
@@ -25,6 +21,9 @@ st.markdown(
     "<h3 style='text-align: center; padding: 2px;'>Analyze Sentiment Trends of British Airways Flights</h3>",
     unsafe_allow_html=True
 )
+st.image("app/media/robo.jpg",
+             use_column_width=True,
+             )
 
 # Sidebar Navigation with header background color
 st.sidebar.markdown(
