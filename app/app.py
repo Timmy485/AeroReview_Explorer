@@ -1,5 +1,5 @@
 import streamlit as st
-import config
+# from . import config
 
 st. set_page_config(layout ="wide")
 st.markdown(
