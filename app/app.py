@@ -60,7 +60,7 @@ elif selected_feature == "Data Visualization":
 
 elif selected_feature == "Word Clouds":
     # Word Clouds Content
-    st.header("Word Clouds")
+    st.header("Word Clouds & Frequency Analysis")
     # Include word clouds for positive, negative, and neutral sentiments.
 
 elif selected_feature == "Geographical Insights":
