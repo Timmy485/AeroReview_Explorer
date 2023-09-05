@@ -3,6 +3,7 @@ import plotly.express as px
 import pandas as pd
 import base64
 from collections import Counter
+import os
 # from . import config
 
 st. set_page_config(layout="wide")
@@ -36,7 +37,9 @@ def set_bg_hack(main_bg):
     )
 
 
-set_bg_hack('media/plane.jpg')
+path = os.path.dirname(__file__)
+my_file = path+'/media/plane.jpg'
+set_bg_hack(my_file)
 
 # Set the title and subtitle with background color
 st.markdown(
@@ -47,9 +50,6 @@ st.markdown(
     "<h3 style='text-align: center; padding: 2px;'>Analyze Sentiment Trends of British Airways Flights</h3>",
     unsafe_allow_html=True
 )
-# st.image("media/robo.jpg",
-#              use_column_width=True,
-#              )
 
 # Sidebar Navigation with header background color
 st.sidebar.markdown(
