@@ -80,7 +80,12 @@ if selected_feature == "Sentiment Distribution":
     
     counts = [50, 30, 20]  # Replace with your actual sentiment counts
 
-    df = pd.read_csv("../data/review_sentiment_df.csv")
+
+    current_directory = os.path.dirname(__file__)
+    # Construct the path to data.csv
+    data_csv_path = os.path.join(current_directory, '../data/review_sentiment_df.csv')
+
+    df = pd.read_csv(data_csv_path)
     sentiments = ["Positive", "Negative", "Neutral"]
     count = Counter(df['sentiments'])
     counts = [count['Positive'], count['Negative'], count['Neutral']]
