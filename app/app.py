@@ -61,8 +61,8 @@ st.sidebar.markdown(
 # Use a dropdown menu for feature selection
 selected_feature = st.sidebar.selectbox("Select a Feature", (
     "Sentiment Distribution", "Data Visualization",  "Word Clouds",
-    "Topic Modeling", "Real-time Sentiment Analysis", "Geographical Insights",
-    "Comparative Analysis", "Sentiment Trends by Aspect", "Predictive Insights"))
+    "Topic Modeling", "Real-time Sentiment Analysis", "Sentiment Trends by Aspect",
+    "Predictive Insights"))
 
 
 # Main Content with light background color
@@ -77,13 +77,13 @@ if selected_feature == "Sentiment Distribution":
     st.header("Sentiment Distribution")
 
     # Sample sentiment data
-    
-    counts = [50, 30, 20]  # Replace with your actual sentiment counts
 
+    counts = [50, 30, 20]  # Replace with your actual sentiment counts
 
     current_directory = os.path.dirname(__file__)
     # Construct the path to data.csv
-    data_csv_path = os.path.join(current_directory, '../data/review_sentiment_df.csv')
+    data_csv_path = os.path.join(
+        current_directory, '../data/review_sentiment_df.csv')
 
     df = pd.read_csv(data_csv_path)
     sentiments = ["Positive", "Negative", "Neutral"]
