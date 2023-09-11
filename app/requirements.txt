@@ -4,4 +4,4 @@ pandas
 seaborn
 nltk
 wordcloud
-matplotlib.pyplot
+matplotlib
