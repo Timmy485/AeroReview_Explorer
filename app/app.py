@@ -5,8 +5,12 @@ import pandas as pd
 from collections import Counter
 from nltk.tokenize import word_tokenize
 from nltk.probability import FreqDist
+import plotly.graph_objects as go
 from wordcloud import WordCloud
+import matplotlib.pyplot as plt
 import os
+import nltk
+# nltk.download('punkt')
 
 
 st. set_page_config(layout="wide")
@@ -78,6 +82,17 @@ def plot_barplot(freqdist, text=''):
     # Display the Plotly figure using Streamlit
     st.plotly_chart(fig)
 
+def plot_wordcloud(freqdist):  
+    wordcloud = WordCloud(width=800, height=800, background_color='white', max_words=100, contour_width=3, contour_color='steelblue')
+    wordcloud.generate_from_frequencies(freqdist)
+    
+    fig, ax = plt.subplots(figsize=(8, 8))
+    ax.imshow(wordcloud, interpolation='bilinear')
+    ax.axis('off')
+    
+    st.pyplot(fig)
+
+    
 # Set the title and subtitle with background color
 st.markdown(
     "<h1 style='text-align: center; padding: 10px;'>AEROREVIEW EXPLORER</h1>",
@@ -175,15 +190,20 @@ elif selected_feature == "Data Visualization":
 
 elif selected_feature == "Word Clouds":
     # Word Clouds Content
-    st.header("Word Clouds & Frequency Analysis")
-    # Include word clouds for positive, negative, and neutral sentiments.
+    st.header("Word Clouds")
 
     col1, col2 = st.columns(2)
     with col1:
         st.write("Positive Word Cloud")
+        freqdist = calculate_word_frequency(positive_reviews['reviews'])
+        top_words = freqdist.most_common(11)
+        plot_wordcloud(freqdist)
 
     with col2:
         st.write("Negative Word Cloud")
+        freqdist = calculate_word_frequency(negative_reviews['reviews'])
+        top_words = freqdist.most_common(11)
+        plot_wordcloud(freqdist)
 
 
 elif selected_feature == "Geographical Insights":
