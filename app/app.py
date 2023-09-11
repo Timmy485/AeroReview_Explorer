@@ -10,7 +10,7 @@ from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 import os
 import nltk
-# nltk.download('punkt')
+nltk.download('punkt')
 
 
 st. set_page_config(layout="wide")
@@ -92,7 +92,7 @@ def plot_wordcloud(freqdist):
     
     st.pyplot(fig)
 
-    
+
 # Set the title and subtitle with background color
 st.markdown(
     "<h1 style='text-align: center; padding: 10px;'>AEROREVIEW EXPLORER</h1>",
@@ -194,13 +194,13 @@ elif selected_feature == "Word Clouds":
 
     col1, col2 = st.columns(2)
     with col1:
-        st.write("Positive Word Cloud")
+        st.write("Positive Reviews Word Cloud")
         freqdist = calculate_word_frequency(positive_reviews['reviews'])
         top_words = freqdist.most_common(11)
         plot_wordcloud(freqdist)
 
     with col2:
-        st.write("Negative Word Cloud")
+        st.write("Negative Reviews Word Cloud")
         freqdist = calculate_word_frequency(negative_reviews['reviews'])
         top_words = freqdist.most_common(11)
         plot_wordcloud(freqdist)
