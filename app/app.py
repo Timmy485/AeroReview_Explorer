@@ -2,7 +2,7 @@ import streamlit as st
 import plotly.express as px
 import pandas as pd
 from collections import Counter
-from helpers import set_bg_hack, calculate_word_frequency, plot_barplot, plot_wordcloud
+from .helpers import set_bg_hack, calculate_word_frequency, plot_barplot, plot_wordcloud
 import os
 
 
