@@ -2,7 +2,7 @@ import base64
 import plotly.express as px
 import streamlit as st
 # import matplotlib.pyplot as plt
-import seaborn as sns
+# import seaborn as sns
 from nltk.tokenize import word_tokenize
 from nltk.probability import FreqDist
 from wordcloud import WordCloud
