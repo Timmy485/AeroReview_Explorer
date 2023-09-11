@@ -1,8 +1,11 @@
 import streamlit as st
+import base64
 import plotly.express as px
 import pandas as pd
 from collections import Counter
-from .helpers import set_bg_hack, calculate_word_frequency, plot_barplot, plot_wordcloud
+from nltk.tokenize import word_tokenize
+from nltk.probability import FreqDist
+from wordcloud import WordCloud
 import os
 
 
@@ -20,11 +23,25 @@ st.markdown(
 )
 
 
+def set_bg_hack(main_bg):
+    # set bg name
+    main_bg_ext = "png"
+
+    st.markdown(
+        f"""
+         <style>
+         .stApp {{
+             background: url(data:image/{main_bg_ext};base64,{base64.b64encode(open(main_bg, "rb").read()).decode()});
+             background-size: cover;
+         }}
+         </style>
+         """,
+        unsafe_allow_html=True
+    )
+
 path = os.path.dirname(__file__)
 my_file = path+'/media/plane.jpg'
 set_bg_hack(my_file)
-
-
 
 # Construct the path to data.csv
 current_directory = os.path.dirname(__file__)
@@ -38,6 +55,28 @@ negative_reviews = df[df['sentiments'] == 'Negative']
 neutral_reviews = df[df['sentiments'] == 'Neutral']
 
 
+
+def calculate_word_frequency(df):
+    # Tokenize the text data
+    tokens = word_tokenize(' '.join(df))
+    tokens = [word.strip(",.-") for word in tokens]
+
+    # Perform frequency analysis
+    freqdist = FreqDist(tokens)
+    return freqdist
+
+def plot_barplot(freqdist, text=''):
+    top_words = freqdist.most_common(10)  # Get the top 10 most frequent words
+    top_words.pop(0)  # Remove the most common word (usually a stop word)
+    
+    # Create a DataFrame for the top words
+    df = pd.DataFrame(top_words, columns=['Word', 'Frequency'])
+    
+    # Create a bar plot using Plotly Express
+    fig = px.bar(df, x='Frequency', y='Word', orientation='h', title=f'Top 10 most frequent words {text}')
+    
+    # Display the Plotly figure using Streamlit
+    st.plotly_chart(fig)
 
 # Set the title and subtitle with background color
 st.markdown(
