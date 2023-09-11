@@ -1,10 +1,10 @@
 import streamlit as st
 import plotly.express as px
 import pandas as pd
-import base64
 from collections import Counter
+from helpers import set_bg_hack, calculate_word_frequency, plot_barplot, plot_wordcloud
 import os
-# from . import config
+
 
 st. set_page_config(layout="wide")
 st.markdown(
@@ -20,26 +20,24 @@ st.markdown(
 )
 
 
-def set_bg_hack(main_bg):
-    # set bg name
-    main_bg_ext = "png"
-
-    st.markdown(
-        f"""
-         <style>
-         .stApp {{
-             background: url(data:image/{main_bg_ext};base64,{base64.b64encode(open(main_bg, "rb").read()).decode()});
-             background-size: cover;
-         }}
-         </style>
-         """,
-        unsafe_allow_html=True
-    )
-
-
 path = os.path.dirname(__file__)
 my_file = path+'/media/plane.jpg'
 set_bg_hack(my_file)
+
+
+
+# Construct the path to data.csv
+current_directory = os.path.dirname(__file__)
+data_csv_path = os.path.join(
+    current_directory, 
+    '../data/sentiments_without_stopwords.csv')
+
+df = pd.read_csv(data_csv_path)
+positive_reviews = df[df['sentiments'] == 'Positive']
+negative_reviews = df[df['sentiments'] == 'Negative']
+neutral_reviews = df[df['sentiments'] == 'Neutral']
+
+
 
 # Set the title and subtitle with background color
 st.markdown(
@@ -75,17 +73,7 @@ st.markdown(
 if selected_feature == "Sentiment Distribution":
     # Sentiment Distribution Content
     st.header("Sentiment Distribution")
-
-    # Sample sentiment data
-
-    counts = [50, 30, 20]  # Replace with your actual sentiment counts
-
-    current_directory = os.path.dirname(__file__)
-    # Construct the path to data.csv
-    data_csv_path = os.path.join(
-        current_directory, '../data/review_sentiment_df.csv')
-
-    df = pd.read_csv(data_csv_path)
+    
     sentiments = ["Positive", "Negative", "Neutral"]
     count = Counter(df['sentiments'])
     counts = [count['Positive'], count['Negative'], count['Neutral']]
@@ -120,12 +108,44 @@ if selected_feature == "Sentiment Distribution":
 elif selected_feature == "Data Visualization":
     # Data Visualization Content
     st.header("Data Visualization")
-    # Include interactive charts and graphs here.
+
+    # Create two equal-length columns
+    col1, col2 = st.columns(2)
+
+    # Positve Reviewsws Content
+    with col1:
+        st.write("Positive Reviews")
+        freqdist = calculate_word_frequency(positive_reviews['reviews'])
+        top_words = freqdist.most_common(11)
+        
+        plot_barplot(freqdist, text='Top 10 frequent words in positive reviews')
+
+        df = pd.DataFrame(top_words[1:], columns=['Words', 'Count'])
+        st.table(df)
+
+   # Negative Reviewsws Content
+    with col2:
+        st.write("Negative Reviews")
+        freqdist = calculate_word_frequency(negative_reviews['reviews'])
+        top_words = freqdist.most_common(11)
+        
+        plot_barplot(freqdist, text='Top 10 frequent words in negative reviews')
+
+        df = pd.DataFrame(top_words[1:], columns=['Words', 'Count'])
+        st.table(df)
 
 elif selected_feature == "Word Clouds":
     # Word Clouds Content
     st.header("Word Clouds & Frequency Analysis")
     # Include word clouds for positive, negative, and neutral sentiments.
+
+    col1, col2 = st.columns(2)
+    with col1:
+        st.write("Positive Word Cloud")
+
+    with col2:
+        st.write("Negative Word Cloud")
+
 
 elif selected_feature == "Geographical Insights":
     st.header("Geographical Insights")
