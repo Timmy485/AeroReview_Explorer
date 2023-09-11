@@ -1,7 +1,7 @@
 import base64
 import plotly.express as px
 import streamlit as st
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import seaborn as sns
 from nltk.tokenize import word_tokenize
 from nltk.probability import FreqDist
@@ -50,13 +50,13 @@ def plot_barplot(freqdist, text=''):
     # Display the Plotly figure using Streamlit
     st.plotly_chart(fig)
 
-def plot_wordcloud(freqdist):  
-    wordcloud = WordCloud(width=800, height=800, background_color='white', max_words=100, contour_width=3, contour_color='steelblue')
-    wordcloud.generate_from_frequencies(freqdist)
-    plt.figure(figsize=(8, 8))
-    plt.imshow(wordcloud, interpolation='bilinear')
-    plt.axis('off')
-    plt.show()
+# def plot_wordcloud(freqdist):  
+#     wordcloud = WordCloud(width=800, height=800, background_color='white', max_words=100, contour_width=3, contour_color='steelblue')
+#     wordcloud.generate_from_frequencies(freqdist)
+#     plt.figure(figsize=(8, 8))
+#     plt.imshow(wordcloud, interpolation='bilinear')
+#     plt.axis('off')
+#     plt.show()
 
 
 
