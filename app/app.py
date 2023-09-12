@@ -98,9 +98,17 @@ def plot_wordcloud(freqdist):
     st.pyplot(fig)
 
 def get_sentiment(input, model, temperature=0):
-    prompt = "You are an expert at sentiment analysis.\n\n"
-    prompt += "Return the sentiment (Positive, Negative, or Neutral) for each review:\n"
-    prompt += f"Review: {input}\n"
+    prompt = f"""
+                You are an expert at sentiment analysis.
+
+                Return the sentiment (Positive, Negative, or Neutral) 
+                along with key information for the following review:
+
+                Sentiment:
+                Review: {input}
+
+                Present the key info as a summary of bulleted points:
+            """
 
     response  = palm.generate_text(
     model=model,
@@ -264,7 +272,7 @@ elif selected_feature == "Real-time Sentiment Analysis":
 
     prompt = st.chat_input("Input Review...")
     if prompt:
-        st.write(f"Sentiment: {get_sentiment(prompt, 'models/text-bison-001')}")
+        st.write(f"{get_sentiment(prompt, 'models/text-bison-001')}")
 
 
 
