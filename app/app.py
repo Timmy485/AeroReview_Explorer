@@ -111,13 +111,19 @@ def get_sentiment(input, model, temperature=0):
 
 
 # Read the content of the config.json file
-current_script_dir = os.path.dirname(os.path.abspath(__file__))
+json_path = path+'/config.json'
+try:
+    with open(json_path, 'r') as config_file:
+        config_data = json.load(config_file)
+    api_key = config_data.get('key')
+except FileNotFoundError:
+    # If the config.json file is not found, try reading from Streamlit Secrets
+    try:
+        api_key = st.secrets["PALM_API"]
+    except st.secrets.SecretsFileNotFound:
+        st.error("Please provide the API key either in a 'config.json' file or as a Streamlit Secret.")
+        st.stop()
 
-# Construct the absolute path to the JSON file
-json_path = os.path.join(current_script_dir, 'config.json')
-with open(json_path, 'r') as config_file:
-    config_data = json.load(config_file)
-api_key = config_data.get('key')
 palm.configure(api_key=api_key)
 
 
