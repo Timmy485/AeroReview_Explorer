@@ -111,9 +111,7 @@ def get_sentiment(input, model, temperature=0):
 
 
 # Read the content of the config.json file
-json_path = os.path.join(
-    current_directory, 
-    'config.json')
+json_path = path+'/config.json'
 with open(json_path, 'r') as config_file:
     config_data = json.load(config_file)
 api_key = config_data.get('key')
