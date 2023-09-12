@@ -1,4 +1,6 @@
 import streamlit as st
+import json
+import google.generativeai as palm
 import base64
 import plotly.express as px
 import pandas as pd
@@ -20,6 +22,9 @@ st.markdown(
     .appview-container .main .block-container {
         padding-top: 2rem;
         margin: 0;
+    }
+    .css-usj992 {
+    background-color: transparent;
     }
     </style>
     """,
@@ -92,6 +97,31 @@ def plot_wordcloud(freqdist):
     
     st.pyplot(fig)
 
+def get_sentiment(input, model, temperature=0):
+    prompt = "You are an expert at sentiment analysis.\n\n"
+    prompt += "Return the sentiment (Positive, Negative, or Neutral) for each review:\n"
+    prompt += f"Review: {input}\n"
+
+    response  = palm.generate_text(
+    model=model,
+    prompt=prompt,
+    temperature=0,
+    )
+    return response.result
+
+
+# Read the content of the config.json file
+json_path = os.path.join(
+    current_directory, 
+    'config.json')
+with open(json_path, 'r') as config_file:
+    config_data = json.load(config_file)
+api_key = config_data.get('key')
+palm.configure(api_key=api_key)
+
+
+
+
 
 # Set the title and subtitle with background color
 st.markdown(
@@ -159,6 +189,7 @@ if selected_feature == "Sentiment Distribution":
     st.table(df)
 
 
+
 elif selected_feature == "Data Visualization":
     # Data Visualization Content
     st.header("Data Visualization")
@@ -188,6 +219,9 @@ elif selected_feature == "Data Visualization":
         df = pd.DataFrame(top_words[1:], columns=['Words', 'Count'])
         st.table(df)
 
+
+
+
 elif selected_feature == "Word Clouds":
     # Word Clouds Content
     st.header("Word Clouds")
@@ -209,11 +243,24 @@ elif selected_feature == "Word Clouds":
 elif selected_feature == "Geographical Insights":
     st.header("Geographical Insights")
 
+
+
+
 elif selected_feature == "Topic Modeling":
     st.header("Topic Modeling")
 
+
+
+
 elif selected_feature == "Real-time Sentiment Analysis":
     st.header("Real-time Sentiment Analysis")
+
+    prompt = st.chat_input("Input Review...")
+    if prompt:
+        st.write(f"Sentiment: {get_sentiment(prompt, 'models/text-bison-001')}")
+
+
+
 
 elif selected_feature == "Comparative Analysis":
     st.header("Comparative Analysis")
